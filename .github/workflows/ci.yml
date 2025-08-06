@@ -1,0 +1,48 @@
+name: C/C++ CI
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    # A descriptive name for the job, using the matrix variables
+    name: Build & Test (${{ matrix.compiler }}, ${{ matrix.build_type }})
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # A strategy matrix allows you to run the job with different configurations
+    strategy:
+      matrix:
+        compiler: [gcc, clang]
+        build_type: [Debug, Release]
+
+    steps:
+      # Step 1: Checks out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # This is CRITICAL because your project uses a submodule for the Unity framework
+          submodules: 'recursive'
+
+      # Step 2: Configure the project using CMake
+      - name: Configure CMake
+        # Sets the C compiler based on the matrix variable
+        env:
+          CC: ${{ matrix.compiler }}
+        run: cmake -B build -D CMAKE_BUILD_TYPE=${{ matrix.build_type }}
+
+      # Step 3: Build the project (including the test executable)
+      - name: Build with CMake
+        run: cmake --build build --config ${{ matrix.build_type }}
+
+      # Step 4: Run the tests using CTest
+      - name: Run tests with CTest
+        # Sets the working directory to the build folder before running the command
+        working-directory: ./build
+        # The -C flag specifies the build type, and --verbose gives detailed output on failure
+        run: ctest -C ${{ matrix.build_type }} --verbose

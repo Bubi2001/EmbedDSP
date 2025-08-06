@@ -1,0 +1,57 @@
+# .github/workflows/release.yml
+
+name: Create Release
+
+# This workflow runs when a new tag is pushed that matches the pattern 'v*.*.*'
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-release:
+    name: Build Release
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository's code
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # This is important to also fetch the submodules (like Unity)
+          submodules: 'recursive'
+
+      # Step 2: Create a clean source archive for the release
+      # This step creates a directory with only the necessary files for end-users
+      # and then zips it up.
+      - name: Package release assets
+        run: |
+          # Get the version number from the Git tag
+          VERSION=${GITHUB_REF#refs/tags/}
+          
+          # Create a temporary directory for the clean source files
+          mkdir -p embeddsp-release/src
+          mkdir -p embeddsp-release/include
+          
+          # Copy the necessary files into the release directory
+          cp -r src/* embeddsp-release/src/
+          cp -r include/* embeddsp-release/include/
+          cp LICENSE embeddsp-release/
+          cp README.md embeddsp-release/
+          
+          # Create the zip archive
+          zip -r EmbedDSP-${VERSION}-source.zip embeddsp-release
+
+      # Step 3: Create a new GitHub Release
+      # This uses a popular third-party action to create the release.
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          # The `files` input is a list of files to upload as release assets.
+          files: |
+            EmbedDSP-*-source.zip
+          # Set `draft: true` so you can manually review and publish the release.
+          # The release notes will be pre-filled with the tag's commit message.
+          draft: true
+          generate_release_notes: true
