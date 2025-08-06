@@ -26,12 +26,36 @@ Each module in `EmbedDSP` is designed to be one of those specialized tools: ligh
 
 This is the collection of DSP algorithms available in the library.
 
-| Module             | Status     | Description                                                |
+| Module | Status | Description |
 | :----------------- | :--------: | :----------------------------------------------------------------- |
-| **FIR Filter**     | 🟡 In Progress | A generic, Nth-order Finite Impulse Response filter.           |
-| **IIR Filter**     | 🟡 In Progress | A generic, cascaded biquad Infinite Impulse Response filter.   |
-| **PID Controller** | ❌ Planned   | A Proportional-Integral-Derivative controller with anti-windup, derivative on measurement and a low-pass filter on the derivative path. |
-| **FFT**            | ❌ Planned   | A Fast Fourier Transform algorithm for spectral analysis.       |
+| **FIR Filter** | 🟡 In Progress | A generic, Nth-order Finite Impulse Response filter.|
+| **IIR Filter** | 🟡 In Progress | A generic, cascaded biquad Infinite Impulse Response filter. |
+| **Vector Math** | ❌ Planned | A generic collection of vector arithmetic: addition, element-wise multiplication, dot product, cross product, scale... |
+| **Matrix Math** | ❌ Planned | A generic collection of matrix arithmetic: initialisation, addition, multiplication, transpose, inversion... |
+| **PID Controller** | ❌ Planned | A Proportional-Integral-Derivative controller with anti-windup, derivative on measurement and a low-pass filter on the derivative path. |
+| **Extended Kalman Filter** | ❌ Planned | A state predictor to extract Pitch and Roll angles from accelerometer and gyroscope data. |
+| **FFT** | ❌ Planned   | A Fast Fourier Transform algorithm for spectral analysis. |
+| **DCT** | ❌ Planned | A mathematical technique used to convert a signal or image from the spatial domain to the frequency domain, primarily for data compression. It is widely utilized in digital media formats like JPEG for images and MP3 for audio, helping to reduce file sizes while maintaining quality. |
+| **Windowing** | ❌ Planned | Windows to be used in FFTs: Hamming, Hanning & Blackman-Harris |
+| **Moving Average Filter** | ❌ Planned | A moving average filter is a statistical tool used to smooth out data by averaging a set number of data points over time, which helps to reduce noise and highlight trends. |
+| **Median Filter** | ❌ Planned | The median filter is a non-linear digital filtering technique, often used to remove noise from an image, signal, and video. |
+| **Complemntary Filter** | ❌ Planned | A weighted sum between Aceelerometer and Gyroscope readings to extract Pitch and Roll angles. |
+| **Mahony Filter** | ❌ Planned | A type of sensor fusion algorithm primarily used for attitude estimation in inertial navigation systems. |
+| **Madgwick Filter** | ❌ Planned | A type of sensor fusion algorithm primarily used for attitude estimation in inertial navigation systems. |
+| **Decimation** | ❌ Planned | A process of reducing the sampling rate of a signal by selectively removing samples, often used to decrease data size while preserving essential information. |
+| **Interpolation** | ❌ Planned | A technique to estimate unknown values between discrete data points, commonly used to increase the sampling rate of a signal. |
+| **Convolution** | ❌ Planned | A mathematical operation that combines two signals to produce a third signal, representing the amount of overlap between the two as one signal slides over the other. |
+| **Auto-Correlation** | ❌ Planned | A statistical method that measures the similarity between a signal and a delayed version of itself over varying time lags, used to identify repeating patterns or periodicity in the data. |
+| **Cross-Correlation** | ❌ Planned |  A statistical technique that measures the similarity between two different signals as one is shifted over time, used to identify the time delay or relationship between the signals. |
+| **Least Mean Squares** | ❌ Planned | An adaptive filtering algorithm that minimizes the mean square error between the desired output and the actual output by iteratively adjusting filter coefficients based on the input signal. |
+| **Recursive Least Squares** | ❌ Planned | An adaptive filtering algorithm that updates filter coefficients recursively to minimize the weighted least squares error, allowing for faster convergence and better performance in non-stationary environments compared to LMS. |
+| **Acoustic Echo Cancellation** | ❌ Planned | A signal processing technique that removes echo from audio signals in real-time, typically used in telecommunication systems to enhance voice clarity by distinguishing between the original sound and the echoed sound. |
+| **STFT** | ❌ Planned | A time-frequency analysis technique that divides a signal into overlapping segments and applies the Fourier transform to each segment, allowing for the examination of how the frequency content of the signal changes over time. |
+| **ASK** | ❌ Planned | A modulation technique that encodes digital data by varying the amplitude of a carrier wave, where different amplitudes represent different binary values, typically used in simple communication systems. |
+| **FSK** | ❌ Planned | A modulation technique that encodes digital data by varying the frequency of a carrier wave, where different frequencies represent different binary values, commonly used in data transmission and radio communications. |
+| **PSK** | ❌ Planned | A modulation technique that encodes digital data by varying the phase of a carrier wave, where different phase shifts represent different binary values, widely used in digital communication systems for its robustness against noise. |
+| **QAM** | ❌ Planned | A modulation technique that combines both amplitude and phase variations of a carrier wave to encode data, allowing for the transmission of multiple bits per symbol, commonly used in digital communication systems for efficient bandwidth utilization. |
+| **PLL** | ❌ Planned | A control system that synchronizes an output signal's phase with a reference signal's phase, used for frequency synthesis, demodulation, and clock recovery in communication systems. |
 
 ## Getting Started
 
