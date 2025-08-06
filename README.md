@@ -1,7 +1,7 @@
 # EmbedDSP 🎼
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![C/C++ CI](https://github.com/Bubi2001/EmbedDSP/actions/workflows/ci.yml/badge.svg)](https://github.com/Bubi2001/EmbedDSP/actions/workflows/ci.yml)
+[![C/C++ CI](https://github.com/Bubi2001/EmbedDSP/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Bubi2001/EmbedDSP/actions/workflows/ci.yml)
 
 > An open-source C library of DSP algorithms, crafted like a luthier's toolkit: precise, reliable, and built for performance on resource-constrained systems.
 
