@@ -2,6 +2,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![C/C++ CI](https://github.com/Bubi2001/EmbedDSP/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Bubi2001/EmbedDSP/actions/workflows/ci.yml)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/Bubi2001/EmbedDSP)](https://github.com/Bubi2001/EmbedDSP/releases)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Bubi2001/EmbedDSP)](https://github.com/Bubi2001/EmbedDSP/commits/main)
+[![GitHub repo size](https://img.shields.io/github/repo-size/Bubi2001/EmbedDSP)](https://github.com/Bubi2001/EmbedDSP)
+[![GitHub contributors](https://img.shields.io/github/contributors/Bubi2001/EmbedDSP)](https://github.com/Bubi2001/EmbedDSP/graphs/contributors)
 
 > An open-source C library of DSP algorithms, crafted like a luthier's toolkit: precise, reliable, and built for performance on resource-constrained systems.
 
