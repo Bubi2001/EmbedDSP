@@ -32,11 +32,11 @@ This is the collection of DSP algorithms available in the library.
 
 | Module | Status | Description |
 | :----------------- | :--------: | :----------------------------------------------------------------- |
-| **FIR Filter** | 🟡 In Progress | A generic, Nth-order Finite Impulse Response filter.|
-| **IIR Filter** | 🟡 In Progress | A generic, cascaded biquad Infinite Impulse Response filter. |
-| **Vector Math** | ❌ Planned | A generic collection of vector arithmetic: addition, element-wise multiplication, dot product, cross product, scale... |
-| **Matrix Math** | ❌ Planned | A generic collection of matrix arithmetic: initialisation, addition, multiplication, transpose, inversion... |
-| **PID Controller** | ❌ Planned | A Proportional-Integral-Derivative controller with anti-windup, derivative on measurement and a low-pass filter on the derivative path. |
+| **FIR Filter** | ✅ Implemented | A generic, Nth-order Finite Impulse Response filter.|
+| **IIR Filter** | ✅ Implemented | A generic, cascaded biquad Infinite Impulse Response filter. |
+| **Vector Math** | 🟡 In Progress | A generic collection of vector arithmetic: addition, element-wise multiplication, dot product, cross product, scale... |
+| **Matrix Math** | 🟡 In Progress | A generic collection of matrix arithmetic: initialisation, addition, multiplication, transpose, inversion... |
+| **PID Controller** | 🟡 In Progress | A Proportional-Integral-Derivative controller with anti-windup, derivative on measurement and a low-pass filter on the derivative path. |
 | **Extended Kalman Filter** | ❌ Planned | A state predictor to extract Pitch and Roll angles from accelerometer and gyroscope data. |
 | **FFT** | ❌ Planned   | A Fast Fourier Transform algorithm for spectral analysis. |
 | **DCT** | ❌ Planned | A mathematical technique used to convert a signal or image from the spatial domain to the frequency domain, primarily for data compression. It is widely utilized in digital media formats like JPEG for images and MP3 for audio, helping to reduce file sizes while maintaining quality. |
@@ -75,33 +75,7 @@ Integrating an `EmbedDSP` module into your embedded project is designed to be si
 3. **Add to your build.** Add the copied `.c` files to your project's build system (e.g., Makefile, IDE project) and add the `include` path to your compiler's include directories.
 4. **Use the module** in your application.
 
-    ```c
-    #include "embeddsp/iir.h"
-
-    // Define a 4th-order filter (2 biquad sections)
-    #define NUM_SECTIONS 2
-
-    // User allocates memory for the filter instance, coeffs, and state
-    EmbedDSP_IIR_t my_iir_filter;
-    EmbedDSP_IIR_BiquadCoeffs_t my_coeffs[NUM_SECTIONS];
-    EmbedDSP_IIR_BiquadState_t  my_state[NUM_SECTIONS];
-
-    void main(void) {
-        // ... load coefficients into my_coeffs ...
-
-        // Initialize the filter
-        EmbedDSP_IIR_Init(&my_iir_filter, NUM_SECTIONS, my_coeffs, my_state);
-
-        // Process audio samples in a loop
-        while(1) {
-            float input_sample = get_audio_sample();
-            float output_sample = EmbedDSP_IIR_Process(&my_iir_filter, input_sample);
-            send_audio_sample(output_sample);
-        }
-    }
-    ```
-
-5. For complete projects demonstrating how to use the modules, please see the `/examples` directory.
+5. For complete projects demonstrating how to use the modules, please see the `/examples` directory (currently empty, work-in-progress).
 
 ## Contributing
 
