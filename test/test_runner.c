@@ -14,8 +14,7 @@
 // to its test runner function here.
 void run_fir_tests(void);
 void run_iir_tests(void);
-void run_pid_tests(void);
-
+//void run_pid_tests(void);
 
 /**
  * @brief setUp function, called before each test case.
@@ -55,8 +54,8 @@ int main(void) {
     // --- Call test suite runners here ---
     // As you create new test files, add a call to their runner function here.
     // For example, when you create test_fir.c, you will uncomment the line below.
-    // run_fir_tests();
-    // run_iir_tests();
+    run_fir_tests();
+    run_iir_tests();
     // run_pid_tests();
 
     // UNITY_END() must be the last function called in main().
