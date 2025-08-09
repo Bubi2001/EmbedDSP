@@ -1,63 +1,71 @@
+// include/embeddsp/iir.h
+
 #ifndef EMBEDDSP_IIR_H
 #define EMBEDDSP_IIR_H
 
-#include <stdint.h> // For standard integer types like uint16_t
+#include <stdint.h>
 
 /**
- * @brief Coefficients for a single IIR biquad section.
+ * @brief A generic cascaded biquad IIR filter instance structure.
  *
- * For a standard transfer function H(z) = (b0 + b1*z^-1 + b2*z^-2) / (1 + a1*z^-1 + a2*z^-2),
- * these are the coefficients. Note that a0 is assumed to be 1.
+ * This structure holds the state and configuration for a filter composed of
+ * one or more second-order sections (biquads) connected in series.
  */
 typedef struct {
-    float b0, b1, b2; // Feedforward coefficients
-    float a1, a2;     // Feedback coefficients
-} EmbedDSP_IIR_BiquadCoeffs_t;
+    uint16_t num_sections;  /**< The number of biquad sections in the cascade. */
+    const float* coeffs;    /**< Pointer to coefficient array. Size must be (num_sections * 5). */
+    float* state;           /**< Pointer to state array. Size must be (num_sections * 2). */
+} iir_biquad_cascaded_t;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
- * @brief State variables for a single IIR biquad section (Direct Form II Transposed).
+ * @brief Initializes a cascaded biquad IIR filter structure.
+ *
+ * This function configures the filter instance by linking it to the user-provided
+ * coefficient and state buffers. The coefficients for each biquad section are
+ * arranged sequentially in the `coeffs` array.
+ *
+ * The coefficient order for EACH of the `num_sections` biquads must be:
+ * { b0, b1, b2, a1, a2 }
+ *
+ * The state buffer is also cleared (filled with zeros).
+ *
+ * @param filter Pointer to the iir_biquad_cascaded_t instance to initialize.
+ * @param num_sections The number of biquad sections.
+ * @param coeffs Pointer to an array of coefficients. Must have (num_sections * 5) elements.
+ * @param state_buffer Pointer to a buffer for state variables. Must have (num_sections * 2) elements.
  */
-typedef struct {
-    float z1, z2; // Delay elements (state)
-} EmbedDSP_IIR_BiquadState_t;
+void iir_init(iir_biquad_cascaded_t* filter, uint16_t num_sections, const float* coeffs, float* state_buffer);
 
 /**
- * @brief IIR filter instance structure.
+ * @brief Processes one input sample and computes the corresponding output sample.
  *
- * This structure holds the state of a cascaded IIR filter. It contains pointers
- * to user-provided arrays for the coefficients and state of each biquad section.
- * This avoids dynamic memory allocation.
+ * The input sample is processed sequentially through each biquad section. The output
+ * of one section becomes the input to the next. The implementation uses the
+ * 'Direct Form II Transposed' structure for each biquad.
+ *
+ * @param filter Pointer to the initialized iir_biquad_cascaded_t instance.
+ * @param input The new input sample to be processed.
+ * @return The calculated output sample.
  */
-typedef struct {
-    uint16_t num_sections; // Number of biquad sections in the cascade.
-    EmbedDSP_IIR_BiquadCoeffs_t* coeffs; // Pointer to the array of coefficient sets.
-    EmbedDSP_IIR_BiquadState_t* state;  // Pointer to the array of state variables.
-} EmbedDSP_IIR_t;
-
+float iir_update(iir_biquad_cascaded_t* filter, float input);
 
 /**
- * @brief Initializes a cascaded IIR filter instance.
+ * @brief Resets the filter's state.
  *
- * @param[out] iir           Pointer to the IIR filter instance structure to initialize.
- * @param[in]  num_sections  The number of biquad sections for the filter.
- * @param[in]  coeffs        Pointer to an array of biquad coefficient structures. The size
- * of this array must be `num_sections`.
- * @param[in]  state_buffer  Pointer to an array of biquad state structures. The size of
- * this array MUST be `num_sections`.
+ * This function clears the internal state variables (delay line) of the filter by
+ * filling them with zeros. This is useful for clearing filter history.
  *
- * @return 0 on success, -1 on failure (e.g., null pointers).
+ * @param filter Pointer to the iir_biquad_cascaded_t instance to flush.
  */
-int EmbedDSP_IIR_Init(EmbedDSP_IIR_t* iir, uint16_t num_sections, EmbedDSP_IIR_BiquadCoeffs_t* coeffs, EmbedDSP_IIR_BiquadState_t* state_buffer);
+void iir_flush(iir_biquad_cascaded_t* filter);
 
 
-/**
- * @brief Processes a single input sample through the cascaded IIR filter.
- *
- * @param[in,out] iir    Pointer to the initialized IIR filter instance.
- * @param[in]     input  The new input sample to process.
- *
- * @return The filtered output sample.
- */
-float EmbedDSP_IIR_Process(EmbedDSP_IIR_t* iir, float input);
+#ifdef __cplusplus
+}
+#endif
 
 #endif // EMBEDDSP_IIR_H
